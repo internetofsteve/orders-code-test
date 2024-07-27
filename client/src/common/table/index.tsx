@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import styled from "styled-components";
 
 const StyledTable = styled.table`
@@ -8,6 +7,8 @@ const StyledTable = styled.table`
 `;
 
 const StyledRow = styled.tr`
+  height: 50px;
+
   &:nth-child(even) {
     background-color: #f6f6f6;
   }
@@ -20,8 +21,6 @@ const StyledRow = styled.tr`
     background-color: #efefef;
   }
 `;
-
-const StyledHeader = styled.div``;
 
 const StyledTableWrapper = styled.div`
   display: flex;
@@ -37,18 +36,17 @@ const StyledHeaderCell = styled.td`
 
 const StyledCell = styled.td`
   text-align: left;
+  min-width: 28px;
 `;
 
 export type Props = {
   columns: string[];
-  rows: string[][];
-  header: ReactNode;
+  rows: (string | null)[][];
 };
 
-export const Table = ({ columns, rows, header }: Props) => {
+export const Table = ({ columns, rows }: Props) => {
   return (
     <StyledTableWrapper>
-      <StyledHeader>{header}</StyledHeader>
       <StyledTable>
         <tr>
           {columns.map((column) => (
