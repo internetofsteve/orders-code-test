@@ -12,3 +12,11 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+model Order {
+  id         Int       @id @default(autoincrement())
+  name       String
+  shipped_at DateTime?
+  created_at DateTime  @default(now())
+  deleted_at DateTime?
+}
