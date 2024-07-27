@@ -6,8 +6,15 @@ const StyledButton = styled.button`
   height: 32px;
   padding: 8px;
   cursor: pointer;
-  background-color: #e4e4e4;
+  background-color: #f5f5f5;
   border-radius: 3px;
+  &:hover {
+    background-color: #dcdcdc;
+  }
+
+  &:active {
+    background-color: #bdc0ff;
+  }
 `;
 
 export const NewOrderButton = () => {
