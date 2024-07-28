@@ -3,6 +3,7 @@ import { getOrders } from "../../lib/order/get-orders/index.js";
 import { newOrder } from "../../lib/order/new-order/index.js";
 import { updateOrder } from "../../lib/order/update-order/index.js";
 import { errorResponse } from "../../utils/error-response/index.js";
+import { clearOrders } from "../../lib/order/clear-orders/index.js";
 
 export const orderRouter = express.Router();
 
@@ -17,6 +18,20 @@ orderRouter.get("/orders", async (req, res) => {
   } catch (error) {
     res.status(400);
     res.json(errorResponse("Error", "unable to get orders"));
+  }
+});
+
+/**
+ * clear all the orders permanently
+ */
+orderRouter.delete("/orders", async (req, res) => {
+  try {
+    const orders = await clearOrders();
+    res.status(200);
+    res.json([]);
+  } catch (error) {
+    res.status(400);
+    res.json(errorResponse("Error", "unable to clear orders"));
   }
 });
 
