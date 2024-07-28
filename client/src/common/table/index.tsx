@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import styled from "styled-components";
 
 const StyledTable = styled.table`
@@ -41,7 +42,7 @@ const StyledCell = styled.td`
 
 export type Props = {
   columns: string[];
-  rows: (string | null)[][];
+  rows: ReactNode[][];
 };
 
 export const Table = ({ columns, rows }: Props) => {

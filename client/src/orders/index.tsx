@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import { OrdersTable } from "../orders/orders-table";
-import { Order } from "../common/types";
 import { NewOrderButton } from "./new-order-button";
+import { useOrderProvider } from "./order-provider";
+import { ClearOrdersButton } from "./clear-orders-button";
 
 const StyledContainer = styled.div`
   min-width: 800px;
@@ -10,30 +11,16 @@ const StyledContainer = styled.div`
 `;
 
 export const Orders = () => {
-  const [orders, setOrders] = useState<Order[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [fetchError, setFetchError] = useState(false);
-
+  const { orders, isLoading, isError, fetchOrders } = useOrderProvider();
   useEffect(() => {
-    setLoading(true);
-    fetch("http://localhost:3000/orders")
-      .then(async (res) => {
-        if (!res.ok) {
-          setFetchError(true);
-        }
-        const data = await res.json();
-        setOrders(data as unknown as Order[]);
-        setLoading(false);
-      })
-      .catch(() => {
-        setFetchError(true);
-      });
-  }, []);
+    fetchOrders();
+  }, [fetchOrders]);
 
   return (
     <StyledContainer>
       <NewOrderButton />
-      <OrdersTable orders={orders} isLoading={loading} isError={fetchError} />
+      <ClearOrdersButton />
+      <OrdersTable orders={orders} isLoading={isLoading} isError={isError} />
     </StyledContainer>
   );
 };

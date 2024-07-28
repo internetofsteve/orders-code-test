@@ -2,12 +2,12 @@ import styled from "styled-components";
 import { Table } from "../../common/table";
 import { Order } from "../../common/types";
 import { OrdersTableNotification } from "../orders-table-notification";
-
-const COLS = ["id", "name", "created_at", "shipped_at", "deleted_at"];
+import { OrderControls } from "../order-controls";
+const CONTROLS_COL = "";
+const COLS = ["ID", "Name", "Created At", "Shipped", "Deleted", CONTROLS_COL];
 
 const StyledTableContainer = styled.div`
   min-width: 800px;
-  margin-top: 24px;
 `;
 
 type Props = {
@@ -26,7 +26,14 @@ export const OrdersTable = ({ orders = [], isLoading, isError }: Props) => {
       deleted_at = null,
     } = order;
 
-    return [`${id}`, name, created_at, shipped_at, deleted_at];
+    return [
+      `${id}`,
+      name,
+      created_at,
+      shipped_at ? "shipped" : "",
+      deleted_at ? "deleted" : "",
+      <OrderControls order={order} />,
+    ];
   });
 
   const showTable = !isError && !isLoading;

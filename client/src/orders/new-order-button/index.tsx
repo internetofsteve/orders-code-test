@@ -1,4 +1,7 @@
+import { useCallback } from "react";
 import styled from "styled-components";
+
+import { useOrderProvider } from "../order-provider";
 
 const StyledButton = styled.button`
   border: none;
@@ -6,10 +9,10 @@ const StyledButton = styled.button`
   height: 32px;
   padding: 8px;
   cursor: pointer;
-  background-color: #f5f5f5;
+  background-color: #a9d0e3;
   border-radius: 3px;
   &:hover {
-    background-color: #dcdcdc;
+    background-color: #a1b8f8;
   }
 
   &:active {
@@ -18,5 +21,10 @@ const StyledButton = styled.button`
 `;
 
 export const NewOrderButton = () => {
-  return <StyledButton>New Order</StyledButton>;
+  const { newOrder } = useOrderProvider();
+  const handleNewOrderClick = useCallback(() => {
+    newOrder();
+  }, [newOrder]);
+
+  return <StyledButton onClick={handleNewOrderClick}>New Order</StyledButton>;
 };
